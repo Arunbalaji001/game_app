@@ -81,7 +81,6 @@ class _AnimationPageWidgetState extends State<AnimationPageWidget> with TickerPr
             ),
             alignment: Alignment.bottomCenter,
             child: Container(
-               color: Colors.pink,
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
