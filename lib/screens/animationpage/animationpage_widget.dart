@@ -66,6 +66,162 @@ class _AnimationPageWidgetState extends State<AnimationPageWidget> with TickerPr
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+
+    return Container(
+      color: GameConstants.bgColor,
+      height: screenHeight,
+      width: screenWidth,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Container(
+            width: screenWidth,
+            height: 96,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage(
+                      'assets/home_page/appbar_bg.png',
+                    ),
+                    fit: BoxFit.fill
+                )
+            ),
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 9),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: ()=> Navigator.of(context).pop(),
+                    child: Image.asset(
+                      'assets/home_page/backbutton.png',
+                      height: 28,
+                    ),
+                  ),
+                  Expanded(
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: 28,
+                        child: Container(
+                          width: 142,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage(
+                                      'assets/home_page/bar.png'
+                                  )
+                              )
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Image.asset(
+                                'assets/home_page/coinicon.png',
+                                height: 28,
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  '17010',
+                                  style: Theme.of(context).textTheme.bodyMedium?.apply(
+                                      color: Colors.white
+                                  ),
+                                ),
+                              ),
+                              Image.asset(
+                                'assets/home_page/add.png',
+                                height: 28,
+                              )
+                            ],
+                          ),
+
+                        ),
+                      )),
+                  Container(
+                    height: 28,
+                    width: 28,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white.withAlpha(96),
+                    ),
+                    alignment: Alignment.center,
+                    child: Icon(
+                      Icons.settings,
+                      color: Colors.white,
+                      size: 16,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              // height: screenHeight,
+              width: screenWidth,
+              alignment: Alignment.center,
+              // color: Colors.deepPurple,
+              child: Stack(
+                children: [
+                  Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      height: 276,
+                      child: Image.asset(
+                        'assets/animation_page/slot.png',
+                        width: screenWidth,
+                        fit: BoxFit.fill,
+                      )
+                  ),
+                  Positioned(
+                      bottom: 164,
+                      left: 0,
+                      right: 0,
+                      child: Container(
+                          alignment: Alignment.center,
+                          child: AnimatedCoinWidget(
+                            flipController: flipController,
+                            jumpAnimation: jumpAnimation,
+                            jumpController: jumpController,
+                          )
+                      )
+                  ),
+                  Positioned(
+                    bottom: 154,
+                    left: 0,
+                    right: 0,
+                    child:  ValueListenableBuilder(
+                        valueListenable: showButton,
+                        builder: (context, value, child) {
+                          if(value){
+                            return GestureDetector(
+                              onTap: () {
+                                animateCoin();
+                              },
+                              child: Image.asset(
+                                'assets/home_page/coinicon.png',
+                                height:118,
+                                width: 96,
+
+                              ),
+                            );
+                          }
+                          else{
+                            return SizedBox();
+                          }
+                        }
+                    ),
+                  )
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+    );
     return Scaffold(
       backgroundColor: GameConstants.bgColor,
       appBar: PreferredSize(

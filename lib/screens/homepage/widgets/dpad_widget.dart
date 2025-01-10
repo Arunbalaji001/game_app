@@ -12,42 +12,68 @@ class _DpadWidgetState extends State<DpadWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 184,
-      height: 240,
-      // color: Colors.green,
-      child: Stack(
-        children: [
-          Positioned(
-            top: 0,
-              left: 60,
-              child: DirectionButtonWidget(
-                buttonDirection: ButtonDirection.up,
-              )),
-
-          Positioned(
-            top: 72,
-              left: 0,
-              right: 0,
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      // margin: EdgeInsets.only(top: 30, bottom: 24),
+    child: AspectRatio(
+        aspectRatio: 0.76,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            double maxWidth = constraints.maxWidth;
+            double maxHeight = constraints.maxHeight;
+            double containerWidth = maxWidth/3;
+            double containerHeight = maxHeight/3;
+            return Container(
+              // margin: EdgeInsets.only(top: 30, bottom: 24),
+              // width: 184,
+              // height: 240,
+              // color: Colors.green,
+              alignment: Alignment.center,
+              child: Stack(
+                alignment: Alignment.center,
                 children: [
-                  DirectionButtonWidget(
-                    buttonDirection: ButtonDirection.left,
-                  ),
-                  DirectionButtonWidget(
-                    buttonDirection: ButtonDirection.right,
-                  )
-                ],
-              )),
+                  // Positioned.fill(child: Container(color: Colors.lightGreenAccent,)),
+                  Positioned(
+                    top: (containerHeight/100)*12,
+                      left: containerWidth,
+                      child: DirectionButtonWidget(
+                        buttonDirection: ButtonDirection.up,
+                        containerHeight: containerHeight,
+                        containerWidth: containerWidth,
+                      )),
 
-          Positioned(
-              top: 144,
-              left: 60,
-              child: DirectionButtonWidget(
-                buttonDirection: ButtonDirection.down,
-              )),
-        ],
+                  Positioned(
+                    top: containerHeight-4,
+                      left: 0,
+                      right: 0,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          DirectionButtonWidget(
+                            buttonDirection: ButtonDirection.left,
+                            containerHeight: containerHeight,
+                            containerWidth: containerWidth,
+                          ),
+                          DirectionButtonWidget(
+                            buttonDirection: ButtonDirection.right,
+                            containerHeight: containerHeight,
+                            containerWidth: containerWidth,
+                          )
+                        ],
+                      )),
+                  //
+                  Positioned(
+                      top: (containerHeight*2)-12,
+                      left: containerWidth,
+                      child: DirectionButtonWidget(
+                        buttonDirection: ButtonDirection.down,
+                        containerHeight: containerHeight,
+                        containerWidth: containerWidth,
+                      )),
+                ],
+              ),
+            );
+          }
+        ),
       ),
     );
   }
